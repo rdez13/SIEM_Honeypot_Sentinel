@@ -1,0 +1,9 @@
+FAILED_RDP_WITH_GEO_CL
+| extend latitude = extract(@"latitude:([-\d\.]+)", 1, RawData),
+         longitude = extract(@"longitude:([-\d\.]+)", 1, RawData),
+         destinationhost = extract(@"destinationhost:([a-zA-Z0-9.]+)", 1, RawData),
+         sourcehost = extract(@"sourcehost:([0-9\.]+)", 1, RawData),
+         country = extract(@"country:([a-zA-Z\s]+)", 1, RawData),
+         label = extract(@"label:([a-zA-Z\s0-9.-]+)", 1, RawData)
+| where destinationhost != "samplehost" and sourcehost != ""
+| summarize event_count = count() by sourcehost, latitude, longitude, country, label, destinationhost
