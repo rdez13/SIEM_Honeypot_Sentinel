@@ -1,5 +1,11 @@
-﻿
-$API_KEY      = "311a492cb9844122a42800fc740a2a11"
+﻿# Define the path to .env file
+$envFilePath = ".env"
+
+# Read the single line from the .env file
+$envLine = Get-Content $envFilePath
+$apiKey = $envLine -replace "API_KEY=", ""
+
+$API_KEY      = $apiKey
 $LOGFILE_NAME = "failed_rdp.log"
 $LOGFILE_PATH = "C:\ProgramData\$($LOGFILE_NAME)"
 
